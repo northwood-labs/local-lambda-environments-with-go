@@ -56,6 +56,9 @@ It's a _little_ more work for **a lot** more security.
 
 We want to pull the SHA digest for the `:latest` tag on the `ghcr.io/northwood-labs/lambda-provided-al2023` image. This is a [multi-platform image](https://docs.docker.com/build/building/multi-platform/) that has an _Intel64_ version and an _ARM64_ version.
 
+> [!TIP]
+> [View the GitHub Actions workflow](https://github.com/northwood-labs/lambda-provided-al2023/blob/main/.github/workflows/build-and-push.yml) which constructs this multi-platform Docker image from AWS source code.
+
 ```bash
 docker pull ghcr.io/northwood-labs/lambda-provided-al2023:latest
 docker images --digests ghcr.io/northwood-labs/lambda-provided-al2023 --format '{{ .Digest }}'
