@@ -225,7 +225,7 @@ The flow looks like this:
 
 1. Write a small web server (I used [Gin]) which simulates the endpoints you have with API Gateway sitting in front of Lambda. This is your _reverse proxy_.
 
-1. Your reverse proxy reads your HTTP method, query string parameters, request body, etc., and rewrites those inputs as an [API Gateway payload][events.APIGatewayProxyRequest].
+1. When you send a web request to your reverse proxy, the reverse proxy reads your HTTP method, query string parameters, request body, etc., and rewrites those inputs as an [API Gateway payload][events.APIGatewayProxyRequest].
 
 1. Your reverse proxy POSTs that [API Gateway-shaped payload][events.APIGatewayProxyRequest] to the endpoint for _Runtime Interface Emulator_ and your  Lambda function running in a Docker environment.
 
