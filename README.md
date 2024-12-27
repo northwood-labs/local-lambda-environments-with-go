@@ -297,6 +297,10 @@ curl -XPOST "https://debug.ryanparman.com/json" \
 
 If you are using Go, you might find it helpful to replace `/json` with `/dump`. The "dump" format is produced by a tool called [go-spew](https://github.com/davecgh/go-spew), and shows you the data types of the payload.
 
+## Debugging a running Lambda function in Go using Delve
+
+TBD.
+
 [Docker Compose]: https://docs.docker.com/compose
 [Docker Desktop]: https://docker.com/desktop
 [Gin]: https://github.com/gin-gonic/gin#readme
