@@ -5,11 +5,11 @@
 
 ## Overview
 
-AWS has open-sourced their [AWS Lambda runtimes as Docker images](https://github.com/aws/aws-lambda-base-images). However, in typical AWS fashion, they "open-sourced" them [in a broken state](https://gallery.ecr.aws/lambda/provided). So we've had to fork and patch to get them to work outside of Amazon as they should.
+AWS has open-sourced their [AWS Lambda runtimes as Docker images](https://github.com/aws/aws-lambda-base-images). However, they are currently [in a broken state](https://gallery.ecr.aws/lambda/provided). So we've had to create a custom build of the AWS Lambda runtime environments to get them to work as people outside of Amazon expect.
 
 Since we work with Go, we primarily care about the `provided.al2023` runtime. So [this is what we're patching and rebuilding](https://github.com/northwood-labs/lambda-provided-al2023). However, the runtime alone is not enough to make local Lambda functions work the way you expect.
 
-There is also a way to do this with the AWS SAM CLI, however (a) I'm not a fan of AWS SAM, and (b) this can be done with normal Docker Desktop, which will help you understand the pieces better and not be locked into a single vendor's local tooling. (In my experience, AWS has a habit of breaking things and neither noticing nor responding to issues people post in their GitHub repos.)
+There is also a way to do this with the AWS SAM CLI, however (a) I'm not a fan of AWS SAM, and (b) this can be done with normal Docker Desktop, which will help you understand the pieces better and not be locked into a single vendor's local tooling.
 
 ## Intended audience
 
@@ -64,7 +64,7 @@ RUN mv /usr/local/bin/aws-lambda-rie* /usr/local/bin/aws-lambda-rie
 
 ### Identify the SHA digest of the Docker image
 
-It is **always** more secure to refer to a remote Docker image by SHA digest than by tag. This is because a SHA digest is _immutable_, and cannot be changed after-the-fact like a Docker tag can.
+It is more secure to refer to a remote Docker image by SHA digest than by tag. This is because a SHA digest is _immutable_, and cannot be changed after-the-fact like a Docker tag can.
 
 It's a _little_ more work for **a lot** more security.
 
@@ -225,9 +225,7 @@ But what if you have something sitting in-front of your Lambda function? Somethi
 
 ## Simulating API Gateway
 
-When AWS ships software, they have a tendency to behave like IKEA. They give you the pieces you need for a solution, but don't actually provide you a solution that you can start using immediately.
-
-The same is true for local Lambda environments. There is not, at the time of this writing, any out-of-the-box solution for simulating API Gateway. This GitHub issue entitled “[Emulate API Gateway payload in event object](https://github.com/aws/aws-lambda-runtime-interface-emulator/issues/64)” calls this out and has some helpful suggestions, but they all essentially involve setting up a reverse proxy which does what you want.
+There is not, at the time of this writing, any out-of-the-box solution for simulating API Gateway. This GitHub issue entitled “[Emulate API Gateway payload in event object](https://github.com/aws/aws-lambda-runtime-interface-emulator/issues/64)” calls this out and has some helpful suggestions, but they all essentially involve setting up a reverse proxy to do what you want.
 
 A reverse proxy sits between you and the service you're talking to, and (in this case) translates the _shape_ of the request and response into/out-of API Gateway format.
 
