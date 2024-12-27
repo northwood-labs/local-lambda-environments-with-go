@@ -7,11 +7,25 @@
 
 AWS has open-sourced their [AWS Lambda runtimes as Docker images](https://github.com/aws/aws-lambda-base-images). However, in typical AWS fashion, they "open-sourced" them [in a broken state](https://gallery.ecr.aws/lambda/provided). So we've had to fork and patch to get them to work outside of Amazon as they should.
 
-Since we work with Go, we primarily care about the `provided.al2023` runtime. So [this is what we're patching and rebuilding](https://github.com/northwood-labs/lambda-provided-al2023).
-
-However, the runtime alone is not enough to make local Lambda functions work the way you expect.
+Since we work with Go, we primarily care about the `provided.al2023` runtime. So [this is what we're patching and rebuilding](https://github.com/northwood-labs/lambda-provided-al2023). However, the runtime alone is not enough to make local Lambda functions work the way you expect.
 
 There is also a way to do this with the AWS SAM CLI, however (a) I'm not a fan of AWS SAM, and (b) this can be done with normal Docker Desktop, which will help you understand the pieces better and not be locked into a single vendor's local tooling. (In my experience, AWS has a habit of breaking things and neither noticing nor responding to issues people post in their GitHub repos.)
+
+## Intended audience
+
+The indended audience of this documentation is a person who:
+
+* Is actively building things for AWS Lambda (or knows how to).
+* Wants to understand how the various pieces of the puzzle work.
+* Is working with Go.
+  * …or can transpose these instructions for another language
+* Is _generally_ familiar with GitHub-isms.
+  * Personal access tokens
+  * GitHub releases can have downloadable assets
+* Is _generally_ familiar with modern Docker-isms.
+  * Multi-stage builds
+  * Multi-platform images
+  * Secure handling of secrets
 
 ## Dockerfile
 
